@@ -112,7 +112,7 @@ void   addConcreteCell(ConcreteCell *cell);
 void   delConcreteNet(ConcreteNet *net);
 void   delConcreteCell(ConcreteCell *cell);
 
-void   globalPreplace(float utilization);
+void   globalPreplace(float utilization); //place_pads.cpp¡• Ù”⁄place_base.h/.cpp 
 void   globalPlace();
 void   globalIncremental();
 void   globalFixDensity(int numBins, float maxMovement);

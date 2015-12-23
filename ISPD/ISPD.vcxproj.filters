@@ -21,6 +21,9 @@
     <ClCompile Include="place_base.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="place_pads.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="place_base.h">

@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="place_base.cpp" />
+    <ClCompile Include="place_pads.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="place_base.h" />
