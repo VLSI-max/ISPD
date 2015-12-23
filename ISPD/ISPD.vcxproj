@@ -153,6 +153,7 @@
     <ClCompile Include="place_gordian.cpp" />
     <ClCompile Include="place_pads.cpp" />
     <ClCompile Include="place_partition.cpp" />
+    <ClCompile Include="place_qpsolver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libhmetis.h" />

@@ -127,12 +127,12 @@ void presortNets() {
 /// \brief Splits large leaf partitions.
 //
 // --------------------------------------------------------------------
-/*
+
 bool refinePartitions() {
 
   return refinePartition(g_place_rootPartition);
 }
-*/
+
 
 // --------------------------------------------------------------------
 // reallocPartitions()
@@ -140,12 +140,12 @@ bool refinePartitions() {
 /// \brief Reallocates the partitions based on placement information.
 //
 // --------------------------------------------------------------------
-/*
+
 void reallocPartitions() {
 
-  reallocPartition(g_place_rootPartition);
+	reallocPartition(g_place_rootPartition);
 }
-*/
+
 
 // --------------------------------------------------------------------
 // refinePartition()
@@ -153,7 +153,7 @@ void reallocPartitions() {
 /// \brief Splits any large leaves within a partition.
 //
 // --------------------------------------------------------------------
-/*
+
 bool refinePartition(Partition *p) {
   bool degenerate = false;
   int nonzeroCount = 0;
@@ -174,7 +174,7 @@ bool refinePartition(Partition *p) {
   // leaf...
   // create two new subpartitions
   g_place_numPartitions++;
-  p->m_sub1 = malloc(sizeof(Partition));
+  p->m_sub1 = (struct Partition *)malloc(sizeof(Partition));
   p->m_sub1->m_level = p->m_level+1;
   p->m_sub1->m_leaf = true;
   p->m_sub1->m_done = false;
@@ -182,7 +182,7 @@ bool refinePartition(Partition *p) {
   p->m_sub1->m_vertical = !p->m_vertical;
   p->m_sub1->m_numMembers = 0;
   p->m_sub1->m_members = NULL;
-  p->m_sub2 = malloc(sizeof(Partition));
+  p->m_sub2 = (struct Partition *)malloc(sizeof(Partition));
   p->m_sub2->m_level = p->m_level+1;
   p->m_sub2->m_leaf = true;
   p->m_sub2->m_done = false;
@@ -252,7 +252,7 @@ bool refinePartition(Partition *p) {
   
   return p->m_done;
 }
-*/
+
 
 // --------------------------------------------------------------------
 // repartitionHMetis()
@@ -262,7 +262,7 @@ bool refinePartition(Partition *p) {
 /// The number of cut nets between the two partitions will be minimized.
 //
 // --------------------------------------------------------------------
-/*
+
 void repartitionHMetis(Partition *parent) {
 #if defined(NO_HMETIS)
   printf("QPAR_02 : \t\tERROR: hMetis not available.  Ignoring.\n");
@@ -430,7 +430,7 @@ void repartitionHMetis(Partition *parent) {
   free(partitionAssignment);
 #endif
 }
-*/
+
 
 // --------------------------------------------------------------------
 // repartitionFM()
@@ -440,7 +440,7 @@ void repartitionHMetis(Partition *parent) {
 /// UNIMPLEMENTED (well, un-C-ified)
 //
 // --------------------------------------------------------------------
-/*
+
 void repartitionFM(Partition *parent) {
 #if 0
     assert(!parent->leaf && parent->m_sub1->leaf && parent->m_sub2->leaf);
@@ -786,7 +786,7 @@ void repartitionFM(Partition *parent) {
     cout << "FIDM-22 : \tstarting cuts= " << before_cuts << " final cuts= " << current_cuts << endl;
 #endif
 }
-*/
+
 
 
 /*
@@ -837,7 +837,7 @@ void FM_updateGains(ConcreteNet *net, int partition, int inc,
 #endif
 */
 
-/*
+
 // --------------------------------------------------------------------
 // partitionEqualArea()
 //
@@ -881,9 +881,9 @@ void partitionEqualArea(Partition *parent) {
     }
   
 }
-*/
 
-/*
+
+
 // --------------------------------------------------------------------
 // partitionScanlineMincut()
 //
@@ -991,9 +991,9 @@ void partitionScanlineMincut(Partition *parent) {
   }
 #endif
 }
-*/
 
-/*
+
+
 // --------------------------------------------------------------------
 // reallocPartition()
 //
@@ -1018,7 +1018,7 @@ void reallocPartition(Partition *p) {
   // --- PARTITION IMPROVEMENT
   if (p->m_level < REPARTITION_LEVEL_DEPTH) {
     if (REPARTITION_HMETIS)
-      repartitionHMetis(p);
+		repartitionHMetis(p);
     
     resizePartition(p);
   }
@@ -1026,9 +1026,9 @@ void reallocPartition(Partition *p) {
   reallocPartition(p->m_sub1);
   reallocPartition(p->m_sub2);
 }
-*/
 
-/*
+
+
 // --------------------------------------------------------------------
 // resizePartition()
 //
@@ -1055,7 +1055,7 @@ void resizePartition(Partition *p) {
     p->m_sub2->m_bounds.w = p->m_bounds.w;
   }
 }
-*/
+
 
 /*
 // --------------------------------------------------------------------

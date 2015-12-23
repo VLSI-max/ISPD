@@ -63,22 +63,22 @@ void initPartitioning();
 
 //void incrementalPartition();
 
-//bool refinePartitions();
-//void reallocPartitions();
-//bool refinePartition(Partition *p);
-//void resizePartition(Partition *p);
-//void reallocPartition(Partition *p);
+bool refinePartitions();
+void reallocPartitions();
+bool refinePartition(Partition *p);
+void resizePartition(Partition *p);
+void reallocPartition(Partition *p);
 
-//void repartitionHMetis(Partition *parent);
-//void repartitionFM(Partition *parent);
+void repartitionHMetis(Partition *parent);
+void repartitionFM(Partition *parent);
 
-//void partitionScanlineMincut(Partition *parent);
-//void partitionEqualArea(Partition *parent);
+void partitionScanlineMincut(Partition *parent);
+void partitionEqualArea(Partition *parent);
 
 //void sanitizePlacement();
 
-//void constructQuadraticProblem();
-//void solveQuadraticProblem(bool useCOG);
+void constructQuadraticProblem();
+void solveQuadraticProblem(bool useCOG);
 
 
 

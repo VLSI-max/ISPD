@@ -17,7 +17,7 @@
 #include "place_base.h"
 
 //ABC_NAMESPACE_IMPL_START
-extern void constructQuadraticProblem();
+//extern void constructQuadraticProblem();
 
 
 // --------------------------------------------------------------------
@@ -51,12 +51,12 @@ void globalPlace() {
 	/*
 	// iterate placement until termination condition is met
 	while (!completionFlag) {
-		printf("QMAN-01 : \titeration %d numPartitions = %d\n", iteration, g_place_numPartitions);
+		//printf("QMAN-01 : \titeration %d numPartitions = %d\n", iteration, g_place_numPartitions);
 
 		// do the global optimization in each direction
 		printf("QMAN-01 : \t\tglobal optimization\n");
-		solveQuadraticProblem(!IGNORE_COG);//Wu:delete for test
-
+		solveQuadraticProblem(!IGNORE_COG);
+		
 		// -------- PARTITIONING BASED CELL SPREADING ------
 
 		// bisection
@@ -67,8 +67,10 @@ void globalPlace() {
 		printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 
 		iteration++;
+		
 	}
-
+	*/
+	/*
 	// final global optimization
 	printf("QMAN-02 : \t\tfinal pass\n");
 	if (FINAL_REALLOCATE_PARTITIONS) reallocPartitions();

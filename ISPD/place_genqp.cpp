@@ -181,7 +181,7 @@ typedef struct reverseCOG {
 	float      delta;
 } reverseCOG;
 
-/*
+
 // --------------------------------------------------------------------
 // generateCoGConstraints()
 //
@@ -270,9 +270,9 @@ int generateCoGConstraints(reverseCOG COG_rev[]) {
 
 	return --numConstraints;
 }
-*/
 
-/*
+
+
 // --------------------------------------------------------------------
 // solveQuadraticProblem()
 //
@@ -317,6 +317,6 @@ void solveQuadraticProblem(bool useCOG) {
 
 	free(COG_rev);
 }
-*/
+
 //ABC_NAMESPACE_IMPL_END
 

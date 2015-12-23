@@ -33,6 +33,9 @@
     <ClCompile Include="place_genqp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="place_qpsolver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="place_base.h">
