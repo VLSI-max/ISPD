@@ -70,20 +70,20 @@ void globalPlace() {
 		
 	}
 	
-	/*
+	
 	// final global optimization
 	printf("QMAN-02 : \t\tfinal pass\n");
 	if (FINAL_REALLOCATE_PARTITIONS) reallocPartitions();
 	solveQuadraticProblem(!IGNORE_COG);//Wu:delete for test
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
-
+	
 	// clean up
 	sanitizePlacement();
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 	globalFixDensity(25, g_place_rowHeight * 5);
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 
-	*/
+	
 }
 
 
@@ -120,7 +120,7 @@ void   globalIncremental() {
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 }
 
-
+*/
 // --------------------------------------------------------------------
 // sanitizePlacement()
 //
@@ -167,6 +167,6 @@ void sanitizePlacement() {
 	}
 }
 
-*/
+
 //ABC_NAMESPACE_IMPL_END
 

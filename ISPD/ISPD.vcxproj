@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="place_base.cpp" />
+    <ClCompile Include="place_bin.cpp" />
     <ClCompile Include="place_genqp.cpp" />
     <ClCompile Include="place_gordian.cpp" />
     <ClCompile Include="place_pads.cpp" />
