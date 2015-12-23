@@ -189,7 +189,7 @@ void readBookshelfNodes(char *filename) {
 	while (fgets(buf, 1024, nodesFile) && (buf[0] == '\n' || buf[0] == '#'));
 	tok = strtok(buf, DELIMITERS);
 	tok = strtok(NULL, DELIMITERS);
-	numCells = atoi(tok);
+	numCells = atoi(tok); //number of cells
 	printf("READ-10 : number of cells = %d\n", numCells);
 	concreteCells = (ConcreteCell*)malloc(sizeof(ConcreteCell)*numCells);
 	abstractCells = (AbstractCell*)malloc(sizeof(AbstractCell)*numCells);
@@ -229,8 +229,9 @@ void readBookshelfNodes(char *filename) {
 		// DEBUG
 		/*
 		printf("\"%s\" : %f x %f\n", concreteCells[id].m_label,
-		abstractCells[id].m_width,
-		abstractCells[id].m_height);
+			abstractCells[id].m_width,
+			abstractCells[id].m_height);		
+		//cout << abstractCells[id].m_pad << endl;
 		*/
 		id++;
 	}
@@ -343,9 +344,9 @@ int main() {
 	filenameNets = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1.nets";
 
 
-	readBookshelfNodes(filenameNodes);
-	//readBookshelfNets(filenameNets);
-	//readBookshelfPlacement(filenamePl);
+	readBookshelfNodes(filenameNodes); // must be run first to initialize 
+	readBookshelfNets(filenameNets);
+	readBookshelfPlacement(filenamePl);
 
 	//globalPreplace(0.8);
 	//globalPlace();
