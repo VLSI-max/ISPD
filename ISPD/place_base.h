@@ -45,7 +45,7 @@ typedef struct AbstractCell {
 
 	float m_width, m_height;  // dimensions
 
-	bool  m_pad;              // a pad (external I/O) cell?
+	bool  m_pad;              // a pad (external I/O) cell?  //Wu:fixed = 1 unfixed = 0;
 } AbstractCell;
 
 

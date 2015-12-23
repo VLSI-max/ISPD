@@ -6,6 +6,8 @@
 //              ahurst@eecs.berkeley.edu
 //
 /*===================================================================*/
+#include <iostream>
+using namespace std;
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,7 +50,7 @@ void globalPreplace(float utilization) {
 	for (c = 0; c<g_place_numCells; c++) if (g_place_concreteCells[c]) {
 		cell = g_place_concreteCells[c];
 		area = getCellArea(cell);
-		if (cell->m_parent->m_pad) { //分流面积计算：是管脚还是实际需要排布的芯片？
+		if (cell->m_parent->m_pad) { // Wu:分流面积计算：是 pad 还是 cell？
 			padType = cell->m_parent;
 		}
 		else {
@@ -56,7 +58,7 @@ void globalPreplace(float utilization) {
 			g_place_rowHeight = cell->m_parent->m_height;
 		}
 
-		if (cell->m_fixed) { // 绘制 Rect 的位置(x,y)和大小（size）
+		if (cell->m_fixed) { // 绘制 Rect 的位置(x,y)和大小（size） Rectangle is large enough to enclose all cells
 			g_place_coreBounds.x = g_place_coreBounds.x < cell->m_x ? g_place_coreBounds.x : cell->m_x;
 			g_place_coreBounds.y = g_place_coreBounds.y < cell->m_y ? g_place_coreBounds.y : cell->m_y;
 			g_place_coreBounds.w = g_place_coreBounds.w > cell->m_x ? g_place_coreBounds.w : cell->m_x;
@@ -67,7 +69,7 @@ void globalPreplace(float utilization) {
 			padCells[padCount++] = cell;
 		}
 		totalArea += area;
-	}
+	}//for end!
 	if (!padType) {
 		printf("ERROR: No pad cells\n");
 		exit(1);
@@ -96,8 +98,11 @@ void globalPreplace(float utilization) {
 	printf("PLAC-05 : \tplaceable rows  : %d\n", numRows);
 	printf("PLAC-05 : \tcore dimensions : %.0fx%.0f\n",
 		g_place_coreBounds.w, g_place_coreBounds.h);
+	cout << "g_place_coreBounds.x = " << g_place_coreBounds.x << "; g_place_coreBounds.y = " << g_place_coreBounds.y << endl;
+
 	printf("PLAC-05 : \tchip dimensions : %.0fx%.0f\n",
 		g_place_padBounds.w, g_place_padBounds.h);
+	cout << "g_place_padBounds.x = " << g_place_padBounds.x << "; g_place_padBounds.y = " << g_place_padBounds.y << endl;
 
 	remainingPads = padCount;
 	c = 0;

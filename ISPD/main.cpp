@@ -350,7 +350,7 @@ int main() {
 	readBookshelfPlacement(filenamePl);
 
 	globalPreplace(0.8);
-	//globalPlace();
+	globalPlace();
 
 	// DEBUG net/cell removal/addition
 	/*
@@ -380,7 +380,7 @@ int main() {
 
 	//globalIncremental();
 
-	writeBookshelfPlacement(fileWriteResult);
+	//writeBookshelfPlacement(fileWriteResult);
 
 	free(hash_cellname);
 	system("pause");
