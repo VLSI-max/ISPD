@@ -279,6 +279,7 @@ void readBookshelfPlacement(char *filename) {
 			exit(1);
 		}
 
+
 		// position
 		tok = strtok(NULL, DELIMITERS);
 		cell->m_x = atof(tok);
