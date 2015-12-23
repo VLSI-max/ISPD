@@ -348,7 +348,7 @@ int main() {
 	readBookshelfNets(filenameNets);
 	readBookshelfPlacement(filenamePl);
 
-	//globalPreplace(0.8);
+	globalPreplace(0.8);
 	//globalPlace();
 
 	// DEBUG net/cell removal/addition
