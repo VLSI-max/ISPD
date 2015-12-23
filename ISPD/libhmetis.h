@@ -1,3 +1,4 @@
+#pragma once
 // A. Hurst ahurst@eecs.berkeley.edu
 
 #ifndef ABC__phys__place__libhmetis_h

@@ -17,7 +17,7 @@
 #include "place_base.h"
 
 //ABC_NAMESPACE_IMPL_START
-
+extern void constructQuadraticProblem();
 
 
 // --------------------------------------------------------------------
@@ -44,11 +44,11 @@ void globalPlace() {
 	printf("PLAC-10 : Global placement (wirelength-driven Gordian)\n");
 	
 	initPartitioning();
-	/*
+	
 	// build matrices representing interconnections
 	printf("QMAN-00 : \tconstructing initial quadratic problem...\n");
-	constructQuadraticProblem();//Wu:delete for test
-
+	constructQuadraticProblem();
+	/*
 	// iterate placement until termination condition is met
 	while (!completionFlag) {
 		printf("QMAN-01 : \titeration %d numPartitions = %d\n", iteration, g_place_numPartitions);

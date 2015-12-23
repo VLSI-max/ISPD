@@ -63,7 +63,7 @@ void constructQuadraticProblem() {
 	int *seen = (int*)calloc(g_place_numCells, sizeof(int));
 	float weight;
 	int last_index;
-
+	
 	// create problem object
 	if (!g_place_qpProb) {
 		g_place_qpProb = (struct qps_problem*)malloc(sizeof(qps_problem_t)); // Wu
@@ -172,6 +172,7 @@ void constructQuadraticProblem() {
 	free(cell_numTerms);
 	free(cell_terms);
 	free(seen);
+	
 }
 
 typedef struct reverseCOG {
@@ -180,7 +181,7 @@ typedef struct reverseCOG {
 	float      delta;
 } reverseCOG;
 
-
+/*
 // --------------------------------------------------------------------
 // generateCoGConstraints()
 //
@@ -212,14 +213,14 @@ int generateCoGConstraints(reverseCOG COG_rev[]) {
 			stack[++stackPtr] = p->m_sub2;
 		}
 		else {
-			/*
-			cout << "adding a COG constraint for box "
-			<< p->bounds.x << ","
-			<< p->bounds.y << " of size"
-			<< p->bounds.w << "x"
-			<< p->bounds.h
-			<< endl;
-			*/
+			
+			//cout << "adding a COG constraint for box "
+			//<< p->bounds.x << ","
+			//<< p->bounds.y << " of size"
+			//<< p->bounds.w << "x"
+			//<< p->bounds.h
+			//<< endl;
+			
 			cgx = p->m_bounds.x + p->m_bounds.w*0.5;
 			cgy = p->m_bounds.y + p->m_bounds.h*0.5;
 			COG_rev[cogRevNum].x = cgx;
@@ -269,8 +270,9 @@ int generateCoGConstraints(reverseCOG COG_rev[]) {
 
 	return --numConstraints;
 }
+*/
 
-
+/*
 // --------------------------------------------------------------------
 // solveQuadraticProblem()
 //
@@ -315,5 +317,6 @@ void solveQuadraticProblem(bool useCOG) {
 
 	free(COG_rev);
 }
+*/
 //ABC_NAMESPACE_IMPL_END
 
