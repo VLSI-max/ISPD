@@ -337,12 +337,13 @@ void delNetConnections(ConcreteCell *cell) {
 // main 
 int main() {	
 	char *filenamePl, *filenameNodes, *filenameNets;
+	char *fileWriteResult;
 	//filename = "D://Prj//PrjPartition//FmPartitionTest//FmPartitionTest//netlist.txt";
 	//filename = "D://Prj//PrjPartition//FmPartitionTest//FmPartitionTest//ibm10.net"; 
 	filenamePl = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1.pl";
 	filenameNodes = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1.nodes";
 	filenameNets = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1.nets";
-
+	fileWriteResult = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1result.txt";
 
 	readBookshelfNodes(filenameNodes); // must be run first to initialize 
 	readBookshelfNets(filenameNets);
@@ -379,9 +380,9 @@ int main() {
 
 	//globalIncremental();
 
-	//writeBookshelfPlacement(argv[3]);
+	writeBookshelfPlacement(fileWriteResult);
 
-	//free(hash_cellname);
+	free(hash_cellname);
 	system("pause");
 	return 0;
 }

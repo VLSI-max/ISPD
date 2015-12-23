@@ -48,7 +48,7 @@ void globalPreplace(float utilization) {
 	for (c = 0; c<g_place_numCells; c++) if (g_place_concreteCells[c]) {
 		cell = g_place_concreteCells[c];
 		area = getCellArea(cell);
-		if (cell->m_parent->m_pad) {
+		if (cell->m_parent->m_pad) { //分流面积计算：是管脚还是实际需要排布的芯片？
 			padType = cell->m_parent;
 		}
 		else {
@@ -56,7 +56,7 @@ void globalPreplace(float utilization) {
 			g_place_rowHeight = cell->m_parent->m_height;
 		}
 
-		if (cell->m_fixed) {
+		if (cell->m_fixed) { // 绘制 Rect 的位置(x,y)和大小（size）
 			g_place_coreBounds.x = g_place_coreBounds.x < cell->m_x ? g_place_coreBounds.x : cell->m_x;
 			g_place_coreBounds.y = g_place_coreBounds.y < cell->m_y ? g_place_coreBounds.y : cell->m_y;
 			g_place_coreBounds.w = g_place_coreBounds.w > cell->m_x ? g_place_coreBounds.w : cell->m_x;
