@@ -149,10 +149,15 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="place_base.cpp" />
+    <ClCompile Include="place_gordian.cpp" />
     <ClCompile Include="place_pads.cpp" />
+    <ClCompile Include="place_partition.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libhmetis.h" />
     <ClInclude Include="place_base.h" />
+    <ClInclude Include="place_gordian.h" />
+    <ClInclude Include="place_qpsolver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

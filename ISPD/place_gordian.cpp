@@ -37,16 +37,17 @@ int g_place_numPartitions;
 ///
 // --------------------------------------------------------------------
 void globalPlace() {
+	
 	bool completionFlag = false;
 	int iteration = 0;
 
 	printf("PLAC-10 : Global placement (wirelength-driven Gordian)\n");
-
+	
 	initPartitioning();
-
+	/*
 	// build matrices representing interconnections
 	printf("QMAN-00 : \tconstructing initial quadratic problem...\n");
-	constructQuadraticProblem();
+	constructQuadraticProblem();//Wu:delete for test
 
 	// iterate placement until termination condition is met
 	while (!completionFlag) {
@@ -54,7 +55,7 @@ void globalPlace() {
 
 		// do the global optimization in each direction
 		printf("QMAN-01 : \t\tglobal optimization\n");
-		solveQuadraticProblem(!IGNORE_COG);
+		solveQuadraticProblem(!IGNORE_COG);//Wu:delete for test
 
 		// -------- PARTITIONING BASED CELL SPREADING ------
 
@@ -71,7 +72,7 @@ void globalPlace() {
 	// final global optimization
 	printf("QMAN-02 : \t\tfinal pass\n");
 	if (FINAL_REALLOCATE_PARTITIONS) reallocPartitions();
-	solveQuadraticProblem(!IGNORE_COG);
+	solveQuadraticProblem(!IGNORE_COG);//Wu:delete for test
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 
 	// clean up
@@ -79,6 +80,8 @@ void globalPlace() {
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 	globalFixDensity(25, g_place_rowHeight * 5);
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
+
+	*/
 }
 
 
@@ -90,7 +93,7 @@ void globalPlace() {
 /// Requires a valid set of partitions.
 ///
 // --------------------------------------------------------------------
-
+/*
 void   globalIncremental() {
 	if (!g_place_rootPartition) {
 		printf("WARNING: Can not perform incremental placement\n");
@@ -103,9 +106,9 @@ void   globalIncremental() {
 	incrementalPartition();
 
 	printf("QMAN-00 : \tconstructing initial quadratic problem...\n");
-	constructQuadraticProblem();
+	constructQuadraticProblem();//Wu:delete for test
 
-	solveQuadraticProblem(!IGNORE_COG);
+	solveQuadraticProblem(!IGNORE_COG);//Wu:delete for test
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 
 	// clean up
@@ -161,5 +164,7 @@ void sanitizePlacement() {
 		cell->m_y = y;
 	}
 }
+
+*/
 //ABC_NAMESPACE_IMPL_END
 

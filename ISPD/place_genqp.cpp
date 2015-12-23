@@ -25,7 +25,7 @@
 //
 // --------------------------------------------------------------------
 
-qps_problem_t *g_place_qpProb = NULL;
+qps_problem_t *g_place_qpProb = NULL;//wu
 
 
 // --------------------------------------------------------------------
@@ -66,7 +66,7 @@ void constructQuadraticProblem() {
 
 	// create problem object
 	if (!g_place_qpProb) {
-		g_place_qpProb = (struct qps_problem*)malloc(sizeof(qps_problem_t));
+		g_place_qpProb = (struct qps_problem*)malloc(sizeof(qps_problem_t)); // Wu
 		//g_place_qpProb = new qps_problem_t;
 		g_place_qpProb->area = NULL;
 		g_place_qpProb->x = NULL;

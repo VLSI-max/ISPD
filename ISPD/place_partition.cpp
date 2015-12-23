@@ -6,7 +6,6 @@
 //              ahurst@eecs.berkeley.edu
 //
 /*===================================================================*/
-
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -15,6 +14,7 @@
 #include <assert.h>
 //#include <sys/stat.h>
 //#include <unistd.h>
+#include <stdbool.h>
 
 #include "place_base.h"
 #include "place_gordian.h"
@@ -53,10 +53,11 @@ typedef struct FM_cell {
     bool locked;
 } FM_cell;
 
+/*
 void FM_updateGains(ConcreteNet *net, int partition, int inc, 
                     FM_cell target [], FM_cell *bin [], 
                     int count_1 [], int count_2 []);
-
+*/
 
 // --------------------------------------------------------------------
 // initPartitioning()
@@ -73,7 +74,7 @@ void initPartitioning() {
   // create root partition
   g_place_numPartitions = 1;
   if (g_place_rootPartition) free(g_place_rootPartition);
-  g_place_rootPartition = malloc(sizeof(Partition));
+  g_place_rootPartition = (Partition *)malloc(sizeof(Partition));
   g_place_rootPartition->m_level = 0;
   g_place_rootPartition->m_area = 0;
   g_place_rootPartition->m_bounds = g_place_coreBounds;
@@ -82,7 +83,7 @@ void initPartitioning() {
   g_place_rootPartition->m_leaf = true;
       
   // add all of the cells to this partition
-  g_place_rootPartition->m_members = malloc(sizeof(ConcreteCell*)*g_place_numCells);
+  g_place_rootPartition->m_members = (ConcreteCell **)malloc(sizeof(ConcreteCell*)*g_place_numCells);
   g_place_rootPartition->m_numMembers = 0;
   for (i=0; i<g_place_numCells; i++) 
     if (g_place_concreteCells[i]) {
@@ -104,6 +105,7 @@ void initPartitioning() {
 /// Allocates allNetsX2 structures.
 ///
 // --------------------------------------------------------------------
+/*
 void presortNets() {
   allNetsL2 = (ConcreteNet**)realloc(allNetsL2, sizeof(ConcreteNet*)*g_place_numNets);
   allNetsR2 = (ConcreteNet**)realloc(allNetsR2, sizeof(ConcreteNet*)*g_place_numNets);
@@ -118,18 +120,19 @@ void presortNets() {
   qsort(allNetsB2, g_place_numNets, sizeof(ConcreteNet*), netSortByB);
   qsort(allNetsT2, g_place_numNets, sizeof(ConcreteNet*), netSortByT);
 }
-
+*/
 // --------------------------------------------------------------------
 // refinePartitions()
 //
 /// \brief Splits large leaf partitions.
 //
 // --------------------------------------------------------------------
+/*
 bool refinePartitions() {
 
   return refinePartition(g_place_rootPartition);
 }
-
+*/
 
 // --------------------------------------------------------------------
 // reallocPartitions()
@@ -137,11 +140,12 @@ bool refinePartitions() {
 /// \brief Reallocates the partitions based on placement information.
 //
 // --------------------------------------------------------------------
+/*
 void reallocPartitions() {
 
   reallocPartition(g_place_rootPartition);
 }
-
+*/
 
 // --------------------------------------------------------------------
 // refinePartition()
@@ -149,6 +153,7 @@ void reallocPartitions() {
 /// \brief Splits any large leaves within a partition.
 //
 // --------------------------------------------------------------------
+/*
 bool refinePartition(Partition *p) {
   bool degenerate = false;
   int nonzeroCount = 0;
@@ -247,7 +252,7 @@ bool refinePartition(Partition *p) {
   
   return p->m_done;
 }
-
+*/
 
 // --------------------------------------------------------------------
 // repartitionHMetis()
@@ -257,6 +262,7 @@ bool refinePartition(Partition *p) {
 /// The number of cut nets between the two partitions will be minimized.
 //
 // --------------------------------------------------------------------
+/*
 void repartitionHMetis(Partition *parent) {
 #if defined(NO_HMETIS)
   printf("QPAR_02 : \t\tERROR: hMetis not available.  Ignoring.\n");
@@ -383,10 +389,10 @@ void repartitionHMetis(Partition *parent) {
 		       2, (int)(100*MAX_PARTITION_NONSYMMETRY),
 		       options, partitionAssignment, &afterCuts);
 	
-  /*
-  printf("HMET-20 : \t\t\tbalance before %d / %d ... ", parent->m_sub1->m_numMembers,
-         parent->m_sub2->m_numMembers);
-  */
+  
+  //printf("HMET-20 : \t\t\tbalance before %d / %d ... ", parent->m_sub1->m_numMembers,
+  //       parent->m_sub2->m_numMembers);
+  
 
   // reassign members to subpartitions
   parent->m_sub1->m_numMembers = 0;
@@ -410,10 +416,10 @@ void repartitionHMetis(Partition *parent) {
       parent->m_sub2->m_area += area;
     }
   }
-  /*
-  printf("after %d / %d\n", parent->m_sub1->m_numMembers,
-         parent->m_sub2->m_numMembers);
-  */
+  
+  //printf("after %d / %d\n", parent->m_sub1->m_numMembers,
+  //       parent->m_sub2->m_numMembers);
+  
 
   // cout << "HMET-21 : \t\t\tloc: " << initial_cut <<  " targetting: " << targets*100/parent->m_members.length() << "%" << endl;
   // cout << "HMET-22 : \t\t\tstarting cuts= " << beforeCuts << " final cuts= " << afterCuts << endl;
@@ -424,7 +430,7 @@ void repartitionHMetis(Partition *parent) {
   free(partitionAssignment);
 #endif
 }
-
+*/
 
 // --------------------------------------------------------------------
 // repartitionFM()
@@ -434,6 +440,7 @@ void repartitionHMetis(Partition *parent) {
 /// UNIMPLEMENTED (well, un-C-ified)
 //
 // --------------------------------------------------------------------
+/*
 void repartitionFM(Partition *parent) {
 #if 0
     assert(!parent->leaf && parent->m_sub1->leaf && parent->m_sub2->leaf);
@@ -703,19 +710,19 @@ void repartitionFM(Partition *parent) {
 
 	    // move current to locked
 
-/*
-	    cout << "b=" << bin[bin_num] << " ";
-	    cout << current->prev << "-> ";
-	    if (current->prev == 0)
-		cout << "X";
-	    else cout << current->prev->next;
-	    cout  << "=" << current << "=";
-	    if (current->next == 0)
-		cout << "X";
-	    else
-		cout << current->next->prev;
-	    cout << " ->" << current->next << endl;
-*/
+
+//	    cout << "b=" << bin[bin_num] << " ";
+//	    cout << current->prev << "-> ";
+//	    if (current->prev == 0)
+//		cout << "X";
+//	    else cout << current->prev->next;
+//	    cout  << "=" << current << "=";
+//	    if (current->next == 0)
+//		cout << "X";
+//	    else
+//		cout << current->next->prev;
+//	    cout << " ->" << current->next << endl;
+
 
 	    if (bin[bin_num] == current)
 		bin[bin_num] = current->next;
@@ -724,19 +731,19 @@ void repartitionFM(Partition *parent) {
 	    if (current->next != 0)
 		current->next->prev = current->prev;
 
-/*
-	    cout << "b=" << bin[bin_num] << " ";
-	    cout << current->prev << "-> ";
-	    if (current->prev == 0)
-		cout << "X";
-	    else cout << current->prev->next;
-	    cout  << "=" << current << "=";
-	    if (current->next == 0)
-		cout << "X";
-	    else
-		cout << current->next->prev;
-	    cout << " ->" << current->next << endl;
-*/
+
+//	    cout << "b=" << bin[bin_num] << " ";
+//	    cout << current->prev << "-> ";
+//	    if (current->prev == 0)
+//		cout << "X";
+//	    else cout << current->prev->next;
+//	    cout  << "=" << current << "=";
+//	    if (current->next == 0)
+//		cout << "X";
+//	    else
+//		cout << current->next->prev;
+//	    cout << " ->" << current->next << endl;
+
 
 	    current->prev = 0;
 	    current->next = locked;
@@ -779,7 +786,10 @@ void repartitionFM(Partition *parent) {
     cout << "FIDM-22 : \tstarting cuts= " << before_cuts << " final cuts= " << current_cuts << endl;
 #endif
 }
+*/
 
+
+/*
 // ----- FM_updateGains()
 //   moves a cell between bins
 #if 0
@@ -825,8 +835,9 @@ void FM_updateGains(ConcreteNet *net, int partition, int inc,
     
 }
 #endif
+*/
 
-
+/*
 // --------------------------------------------------------------------
 // partitionEqualArea()
 //
@@ -870,8 +881,9 @@ void partitionEqualArea(Partition *parent) {
     }
   
 }
+*/
 
-
+/*
 // --------------------------------------------------------------------
 // partitionScanlineMincut()
 //
@@ -979,8 +991,9 @@ void partitionScanlineMincut(Partition *parent) {
   }
 #endif
 }
+*/
 
-
+/*
 // --------------------------------------------------------------------
 // reallocPartition()
 //
@@ -1013,8 +1026,9 @@ void reallocPartition(Partition *p) {
   reallocPartition(p->m_sub1);
   reallocPartition(p->m_sub2);
 }
+*/
 
-
+/*
 // --------------------------------------------------------------------
 // resizePartition()
 //
@@ -1041,8 +1055,9 @@ void resizePartition(Partition *p) {
     p->m_sub2->m_bounds.w = p->m_bounds.w;
   }
 }
+*/
 
-
+/*
 // --------------------------------------------------------------------
 // incrementalSubpartition()
 //
@@ -1092,8 +1107,9 @@ void incrementalSubpartition(Partition *p, ConcreteCell *newCells [], const int 
   free(newCells1);
   free(newCells2);
 }
+*/
 
-
+/*
 // --------------------------------------------------------------------
 // incrementalPartition()
 //
@@ -1138,5 +1154,7 @@ void incrementalPartition() {
   free(allCells);
   free(newCells);
 }
+*/
+
 //ABC_NAMESPACE_IMPL_END
 

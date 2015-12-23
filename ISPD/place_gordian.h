@@ -41,7 +41,7 @@
 
 extern int g_place_numPartitions;
 
-extern qps_problem_t *g_place_qpProb;
+extern qps_problem_t *g_place_qpProb;//Wu:delete for test
 
 typedef struct Partition {
 
@@ -60,24 +60,24 @@ extern Partition *g_place_rootPartition;
 
 void initPartitioning();
 
-void incrementalPartition();
+//void incrementalPartition();
 
-bool refinePartitions();
-void reallocPartitions();
-bool refinePartition(Partition *p);
-void resizePartition(Partition *p);
-void reallocPartition(Partition *p);
+//bool refinePartitions();
+//void reallocPartitions();
+//bool refinePartition(Partition *p);
+//void resizePartition(Partition *p);
+//void reallocPartition(Partition *p);
 
-void repartitionHMetis(Partition *parent);
-void repartitionFM(Partition *parent);
+//void repartitionHMetis(Partition *parent);
+//void repartitionFM(Partition *parent);
 
-void partitionScanlineMincut(Partition *parent);
-void partitionEqualArea(Partition *parent);
+//void partitionScanlineMincut(Partition *parent);
+//void partitionEqualArea(Partition *parent);
 
-void sanitizePlacement();
+//void sanitizePlacement();
 
-void constructQuadraticProblem();
-void solveQuadraticProblem(bool useCOG);
+//void constructQuadraticProblem();
+//void solveQuadraticProblem(bool useCOG);
 
 
 

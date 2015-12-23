@@ -15,8 +15,6 @@
 
 //ABC_NAMESPACE_HEADER_START
 
-#define __cplusplus
-
 #if defined(__cplusplus)
 extern "C" {
 #endif				/* __cplusplus */

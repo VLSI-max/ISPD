@@ -24,9 +24,24 @@
     <ClCompile Include="place_pads.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="place_gordian.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="place_partition.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="place_base.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="place_gordian.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="libhmetis.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="place_qpsolver.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
