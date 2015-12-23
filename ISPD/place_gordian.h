@@ -42,7 +42,7 @@
 
 extern int g_place_numPartitions;
 
-extern qps_problem_t *g_place_qpProb;//Wu:delete for test
+extern qps_problem_t *g_place_qpProb; 
 
 typedef struct Partition {
 

@@ -66,15 +66,15 @@ void globalPlace() {
 
 		printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 
+		//if (iteration == 3) break; //wu: ต๗สิ
 		iteration++;
-		
 	}
 	
 	
 	// final global optimization
 	printf("QMAN-02 : \t\tfinal pass\n");
 	if (FINAL_REALLOCATE_PARTITIONS) reallocPartitions();
-	solveQuadraticProblem(!IGNORE_COG);//Wu:delete for test
+	solveQuadraticProblem(!IGNORE_COG);
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 	
 	// clean up

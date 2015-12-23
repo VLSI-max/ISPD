@@ -50,21 +50,22 @@ void globalPreplace(float utilization) {
 	for (c = 0; c<g_place_numCells; c++) if (g_place_concreteCells[c]) {
 		cell = g_place_concreteCells[c];
 		area = getCellArea(cell);
-		if (cell->m_parent->m_pad) { // Wu:分流面积计算：是 pad 还是 cell？
+		if (cell->m_parent->m_pad) { // Wu:分流面积计算：是 pad 还是 cell？ :是 pad
 			padType = cell->m_parent;
 		}
-		else {
+		else {//Wu:是 cell
 			coreArea += area;
 			g_place_rowHeight = cell->m_parent->m_height;
 		}
 
-		if (cell->m_fixed) { // 绘制 Rect 的位置(x,y)和大小（size） Rectangle is large enough to enclose all cells
+		if (cell->m_fixed) { //wu: 是pad, 绘制 Rect 的位置(x,y)和大小（size） Rectangle is large enough to enclose all cells， if it is fixed, then cell->m_fixed = 1; otherwise 0;		
 			g_place_coreBounds.x = g_place_coreBounds.x < cell->m_x ? g_place_coreBounds.x : cell->m_x;
 			g_place_coreBounds.y = g_place_coreBounds.y < cell->m_y ? g_place_coreBounds.y : cell->m_y;
 			g_place_coreBounds.w = g_place_coreBounds.w > cell->m_x ? g_place_coreBounds.w : cell->m_x;
 			g_place_coreBounds.h = g_place_coreBounds.h > cell->m_y ? g_place_coreBounds.h : cell->m_y;
+			cout << "m_fixed" << endl;
 		}
-		else if (cell->m_parent->m_pad) {
+		else if (cell->m_parent->m_pad) {//wu: 是pad
 			padCells = (ConcreteCell **)realloc(padCells, sizeof(ConcreteCell **)*(padCount + 1));
 			padCells[padCount++] = cell;
 		}
@@ -74,6 +75,7 @@ void globalPreplace(float utilization) {
 		printf("ERROR: No pad cells\n");
 		exit(1);
 	}
+	//从（0,0）平移到（x,y）
 	g_place_padBounds.w -= g_place_padBounds.x;
 	g_place_padBounds.h -= g_place_padBounds.y;
 
@@ -89,10 +91,10 @@ void globalPreplace(float utilization) {
 	g_place_padBounds = g_place_coreBounds;
 	if (padCount) {
 		printf("PLAC-05 : \tpreplacing %d pad cells\n", padCount);
-		g_place_padBounds.x -= padType->m_width;
-		g_place_padBounds.y -= padType->m_height;
-		g_place_padBounds.w = g_place_coreBounds.w + 2 * padType->m_width;
-		g_place_padBounds.h = g_place_coreBounds.h + 2 * padType->m_height;
+		g_place_padBounds.x -= padType->m_width; //不应该减去o278163的width
+		g_place_padBounds.y -= padType->m_height; //不应该减去o278163的height
+		g_place_padBounds.w = g_place_coreBounds.w + 2 * padType->m_width;//pad x的最大值，不应该是这个的计算
+		g_place_padBounds.h = g_place_coreBounds.h + 2 * padType->m_height;//pad y的最大值，不应该是这个的计算
 	}
 
 	printf("PLAC-05 : \tplaceable rows  : %d\n", numRows);
@@ -107,6 +109,7 @@ void globalPreplace(float utilization) {
 	remainingPads = padCount;
 	c = 0;
 
+	/*
 	// north pads
 	northPads = remainingPads / 4; remainingPads -= northPads;
 	nextPos = 0;
@@ -146,7 +149,7 @@ void globalPreplace(float utilization) {
 		cell->m_y = g_place_padBounds.h + g_place_padBounds.y - cell->m_parent->m_height*0.5 - nextPos;
 		nextPos += (g_place_padBounds.h - padType->m_height) / westPads;
 	}
-
+	*/
 }
 
 //ABC_NAMESPACE_IMPL_END

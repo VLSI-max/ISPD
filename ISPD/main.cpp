@@ -222,6 +222,13 @@ void readBookshelfNodes(char *filename) {
 		// terminal
 		abstractCells[id].m_pad = tok && !strcmp(tok, "terminal");
 
+		/*
+		这里需要加入 .pl文件的信息，一并加入 g_place_concreteCells[cell->m_id] = cell;中
+		*/
+
+
+
+
 		// add!
 		addConcreteCell(&(concreteCells[id]));
 		
@@ -348,9 +355,15 @@ int main() {
 	readBookshelfNodes(filenameNodes); // must be run first to initialize 
 	readBookshelfNets(filenameNets);
 	readBookshelfPlacement(filenamePl);
+	
+	/*
+	cout <<g_place_concreteCells[278154]->m_fixed << endl;
+	cout << g_place_concreteCells[278154]->m_parent->m_width << endl;
+	cout << g_place_concreteCells[278154]->m_parent->m_pad << endl;
+	*/
 
 	globalPreplace(0.8);
-	globalPlace();
+	//globalPlace();
 
 	// DEBUG net/cell removal/addition
 	/*
@@ -378,9 +391,9 @@ int main() {
 	addConcreteCell(&newCell[1]);
 	*/
 
-	globalIncremental();
+	//globalIncremental();
 
-	writeBookshelfPlacement(fileWriteResult);
+	//writeBookshelfPlacement(fileWriteResult);
 
 	free(hash_cellname);
 	system("pause");
