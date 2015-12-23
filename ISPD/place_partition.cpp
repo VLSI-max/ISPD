@@ -53,11 +53,11 @@ typedef struct FM_cell {
     bool locked;
 } FM_cell;
 
-/*
+
 void FM_updateGains(ConcreteNet *net, int partition, int inc, 
                     FM_cell target [], FM_cell *bin [], 
                     int count_1 [], int count_2 []);
-*/
+
 
 // --------------------------------------------------------------------
 // initPartitioning()
@@ -105,7 +105,7 @@ void initPartitioning() {
 /// Allocates allNetsX2 structures.
 ///
 // --------------------------------------------------------------------
-/*
+
 void presortNets() {
   allNetsL2 = (ConcreteNet**)realloc(allNetsL2, sizeof(ConcreteNet*)*g_place_numNets);
   allNetsR2 = (ConcreteNet**)realloc(allNetsR2, sizeof(ConcreteNet*)*g_place_numNets);
@@ -120,7 +120,7 @@ void presortNets() {
   qsort(allNetsB2, g_place_numNets, sizeof(ConcreteNet*), netSortByB);
   qsort(allNetsT2, g_place_numNets, sizeof(ConcreteNet*), netSortByT);
 }
-*/
+
 // --------------------------------------------------------------------
 // refinePartitions()
 //
@@ -789,7 +789,7 @@ void repartitionFM(Partition *parent) {
 
 
 
-/*
+
 // ----- FM_updateGains()
 //   moves a cell between bins
 #if 0
@@ -835,7 +835,7 @@ void FM_updateGains(ConcreteNet *net, int partition, int inc,
     
 }
 #endif
-*/
+
 
 
 // --------------------------------------------------------------------
@@ -1057,7 +1057,7 @@ void resizePartition(Partition *p) {
 }
 
 
-/*
+
 // --------------------------------------------------------------------
 // incrementalSubpartition()
 //
@@ -1107,9 +1107,9 @@ void incrementalSubpartition(Partition *p, ConcreteCell *newCells [], const int 
   free(newCells1);
   free(newCells2);
 }
-*/
 
-/*
+
+
 // --------------------------------------------------------------------
 // incrementalPartition()
 //
@@ -1154,7 +1154,7 @@ void incrementalPartition() {
   free(allCells);
   free(newCells);
 }
-*/
+
 
 //ABC_NAMESPACE_IMPL_END
 

@@ -378,9 +378,9 @@ int main() {
 	addConcreteCell(&newCell[1]);
 	*/
 
-	//globalIncremental();
+	globalIncremental();
 
-	//writeBookshelfPlacement(fileWriteResult);
+	writeBookshelfPlacement(fileWriteResult);
 
 	free(hash_cellname);
 	system("pause");

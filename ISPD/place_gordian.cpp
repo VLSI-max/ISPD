@@ -95,7 +95,7 @@ void globalPlace() {
 /// Requires a valid set of partitions.
 ///
 // --------------------------------------------------------------------
-/*
+
 void   globalIncremental() {
 	if (!g_place_rootPartition) {
 		printf("WARNING: Can not perform incremental placement\n");
@@ -108,9 +108,9 @@ void   globalIncremental() {
 	incrementalPartition();
 
 	printf("QMAN-00 : \tconstructing initial quadratic problem...\n");
-	constructQuadraticProblem();//Wu:delete for test
+	constructQuadraticProblem();
 
-	solveQuadraticProblem(!IGNORE_COG);//Wu:delete for test
+	solveQuadraticProblem(!IGNORE_COG);
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 
 	// clean up
@@ -120,7 +120,7 @@ void   globalIncremental() {
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 }
 
-*/
+
 // --------------------------------------------------------------------
 // sanitizePlacement()
 //

@@ -61,7 +61,7 @@ extern Partition *g_place_rootPartition;
 
 void initPartitioning();
 
-//void incrementalPartition();
+void incrementalPartition();
 
 bool refinePartitions();
 void reallocPartitions();
