@@ -6,6 +6,8 @@
 //              ahurst@eecs.berkeley.edu
 //
 /*===================================================================*/
+#include<iostream>
+using namespace std;
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -57,19 +59,21 @@ void globalPlace() {
 
 		// do the global optimization in each direction
 		printf("QMAN-01 : \t\tglobal optimization\n");
-		solveQuadraticProblem(!IGNORE_COG);  //½ô½ô¶¢·À
+		solveQuadraticProblem(!IGNORE_COG);  //²âÊÔÍ¨¹ý
 		
 		// -------- PARTITIONING BASED CELL SPREADING ------
 
 		// bisection
 		printf("QMAN-01 : \t\tpartition refinement\n");
 		if (REALLOCATE_PARTITIONS) reallocPartitions();
-		completionFlag |= refinePartitions();
+		completionFlag |= refinePartitions(); //original
+		//refinePartitions();//wu edit
 
 		printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 
 		//if (iteration == 3) break; //wu: µ÷ÊÔ
 		iteration++;
+		//cout << "iteration = " << iteration << endl; //wu edit µ÷ÊÔ
 	}
 	
 	/*

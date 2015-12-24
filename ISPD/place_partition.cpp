@@ -199,7 +199,8 @@ bool refinePartition(Partition *p) {
   else 
     partitionScanlineMincut(p);
 
-  resizePartition(p);
+  resizePartition(p);//≤‚ ‘
+
 
   // --- PARTITION IMPROVEMENT
 
@@ -841,7 +842,7 @@ void FM_updateGains(ConcreteNet *net, int partition, int inc,
 // --------------------------------------------------------------------
 // partitionEqualArea()
 //
-/// \brief Splits a partition into two halves of equal area.
+/// \brief Splits a partition into two halves of ~equal area.
 //
 // --------------------------------------------------------------------
 void partitionEqualArea(Partition *parent) {

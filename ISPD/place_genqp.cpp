@@ -296,7 +296,8 @@ int generateCoGConstraints(reverseCOG COG_rev[]) {
 // solveQuadraticProblem()
 //
 /// \brief Calls quadratic solver.
-//
+// Input : void,或者说是constructQuadraticProblem后的g_place_qpProb
+// Output: 存入了g_place_concreteCells[c]->m_x，g_place_concreteCells[c]->m_y中
 // --------------------------------------------------------------------
 void solveQuadraticProblem(bool useCOG) {
 	int c;
@@ -329,7 +330,8 @@ void solveQuadraticProblem(bool useCOG) {
 		g_place_concreteCells[c]->m_y = g_place_qpProb->y[c];
 	}
 
-	//测试 qpsolve后的解::测试通过
+	//测试 qpsolve后的解::测试通过 
+	//Output: 存入了g_place_concreteCells[c]->m_x，g_place_concreteCells[c]->m_y中
 	for (c = 0; c < g_place_numCells; c++) {
 		cout << "( " << g_place_concreteCells[c]->m_x << " , " << g_place_concreteCells[c]->m_y << " )" << "---";
 	}
