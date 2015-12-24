@@ -47,16 +47,17 @@ void globalPlace() {
 	
 	// build matrices representing interconnections
 	printf("QMAN-00 : \tconstructing initial quadratic problem...\n");
-	constructQuadraticProblem();
-	
-	/*
+	constructQuadraticProblem(); //²âÊÔÍ¨¹ý constructQuadraticProblem()
+								 //²âÊÔÍ¨¹ý edge connection£»g_place_qpProb->connect[i]
+								 //²âÊÔÍ¨¹ý edge weight£»g_place_qpProb->edge_weight[i]
+
 	// iterate placement until termination condition is met
 	while (!completionFlag) {
 		printf("QMAN-01 : \titeration %d numPartitions = %d\n", iteration, g_place_numPartitions);
 
 		// do the global optimization in each direction
 		printf("QMAN-01 : \t\tglobal optimization\n");
-		solveQuadraticProblem(!IGNORE_COG);
+		solveQuadraticProblem(!IGNORE_COG);  //½ô½ô¶¢·À
 		
 		// -------- PARTITIONING BASED CELL SPREADING ------
 
@@ -71,7 +72,7 @@ void globalPlace() {
 		iteration++;
 	}
 	
-	
+	/*
 	// final global optimization
 	printf("QMAN-02 : \t\tfinal pass\n");
 	if (FINAL_REALLOCATE_PARTITIONS) reallocPartitions();

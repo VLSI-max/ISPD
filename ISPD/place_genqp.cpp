@@ -178,12 +178,12 @@ void constructQuadraticProblem() {
 		nextIndex++;
 	}
 
-	//测试通过 g_place_qpProb->connect[i] 
+	//测试通过 edge connection；g_place_qpProb->connect[i] 
 	//for (int i = 0; i < nextIndex-1 ; i++) {
 	//	cout << g_place_qpProb->connect[i]<<"___";
 	//}
 
-	//测试通过edge weight
+	//测试通过edge weight；g_place_qpProb->edge_weight[i]
 	//for (int i = 0; i < nextIndex-1 ; i++) {
 	//	cout << g_place_qpProb->edge_weight[i]<<"___";
 	//}
@@ -327,6 +327,11 @@ void solveQuadraticProblem(bool useCOG) {
 	for (c = 0; c < g_place_numCells; c++) if (g_place_concreteCells[c]) {
 		g_place_concreteCells[c]->m_x = g_place_qpProb->x[c];
 		g_place_concreteCells[c]->m_y = g_place_qpProb->y[c];
+	}
+
+	//测试 qpsolve后的解::测试通过
+	for (c = 0; c < g_place_numCells; c++) {
+		cout << "( " << g_place_concreteCells[c]->m_x << " , " << g_place_concreteCells[c]->m_y << " )" << "---";
 	}
 
 	// clean up
