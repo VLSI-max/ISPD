@@ -6,6 +6,9 @@
 //              ahurst@eecs.berkeley.edu
 //
 /*===================================================================*/
+
+#include<iostream>
+
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -15,6 +18,8 @@
 //#include <sys/stat.h>
 //#include <unistd.h>
 #include <stdbool.h>
+
+using namespace std;
 
 #include "place_base.h"
 #include "place_gordian.h"
@@ -171,6 +176,7 @@ bool refinePartition(Partition *p) {
     return p->m_done;
   }
   
+  p->m_vertical = true;//wu: 为了和教科书第一次切割方向一致，所以修改微调
   // leaf...
   // create two new subpartitions
   g_place_numPartitions++;
@@ -199,7 +205,13 @@ bool refinePartition(Partition *p) {
   else 
     partitionScanlineMincut(p);
 
-  resizePartition(p);//测试
+  resizePartition(p);//测试通过
+  cout << "p->m_sub1->m_bounds.( x , y ) = ( " << p->m_sub1->m_bounds.x << " , " << p->m_sub1->m_bounds.y << " ) " << endl;
+  cout << "p->m_sub1->m_bounds.( w , h ) = ( " << p->m_sub1->m_bounds.w << " , " << p->m_sub1->m_bounds.h << " ) " << endl;
+
+  cout << "p->m_sub2->m_bounds.( x , y ) = ( " << p->m_sub2->m_bounds.x << " , " << p->m_sub2->m_bounds.y << " ) " << endl;
+  cout << "p->m_sub2->m_bounds.( w , h ) = ( " << p->m_sub2->m_bounds.w << " , " << p->m_sub2->m_bounds.h << " ) " << endl;
+
 
 
   // --- PARTITION IMPROVEMENT
