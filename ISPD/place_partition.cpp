@@ -19,7 +19,7 @@
 #include "place_base.h"
 #include "place_gordian.h"
 
-#define NO_HMETIS
+//#define NO_HMETIS
 
 #if !defined(NO_HMETIS)
 #include "libhmetis.h"
@@ -313,7 +313,7 @@ void repartitionHMetis(Partition *parent) {
       cell = parent->m_sub1->m_members[t];
       vertexWeights[cell->m_id] = getCellArea(cell);
       // pay attention to cells that are close to the cut
-      if (abs(cell->m_x-initial_cut) < parent->m_bounds.w*REPARTITION_TARGET_FRACTION) {
+      if (abs((long)(cell->m_x-initial_cut)) < parent->m_bounds.w*REPARTITION_TARGET_FRACTION) {
         targets++;
         partitionAssignment[cell->m_id] = -1;
       }
@@ -324,7 +324,7 @@ void repartitionHMetis(Partition *parent) {
       cell = parent->m_sub2->m_members[t];
       vertexWeights[cell->m_id] = getCellArea(cell);
       // pay attention to cells that are close to the cut
-      if (abs(cell->m_x-initial_cut) < parent->m_bounds.w*REPARTITION_TARGET_FRACTION) {
+      if (abs((long)(cell->m_x-initial_cut)) < parent->m_bounds.w*REPARTITION_TARGET_FRACTION) {
         targets++;
         partitionAssignment[cell->m_id] = -1;
       }		
@@ -347,7 +347,7 @@ void repartitionHMetis(Partition *parent) {
       cell = parent->m_sub1->m_members[t];
       vertexWeights[cell->m_id] = getCellArea(cell);
       // pay attention to cells that are close to the cut
-      if (abs(cell->m_y-initial_cut) < parent->m_bounds.h*REPARTITION_TARGET_FRACTION) {
+      if (abs((long)(cell->m_y-initial_cut)) < parent->m_bounds.h*REPARTITION_TARGET_FRACTION) {
         targets++;
         partitionAssignment[cell->m_id] = -1;
       }
@@ -358,7 +358,7 @@ void repartitionHMetis(Partition *parent) {
       cell = parent->m_sub2->m_members[t];
       vertexWeights[cell->m_id] = getCellArea(cell);
       // pay attention to cells that are close to the cut
-      if (abs(cell->m_y-initial_cut) < parent->m_bounds.h*REPARTITION_TARGET_FRACTION) {
+      if (abs((long)(cell->m_y-initial_cut)) < parent->m_bounds.h*REPARTITION_TARGET_FRACTION) {
         targets++;
         partitionAssignment[cell->m_id] = -1;
       }		

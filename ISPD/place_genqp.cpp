@@ -6,6 +6,8 @@
 //              ahurst@eecs.berkeley.edu
 //
 /*===================================================================*/
+#include<iostream>
+using namespace std;
 
 #include <stdlib.h>
 #include <math.h>
@@ -36,11 +38,14 @@ qps_problem_t *g_place_qpProb = NULL;//wu
 // --------------------------------------------------------------------
 float splitPenalty(int pins) {
 
+	return pins*0.5;
+	/* wu:edit original
 	if (pins > 1) {
 		return 1.0 + CLIQUE_PENALTY / (pins - 1);
 		// return pow(pins - 1, CLIQUE_PENALTY);
 	}
 	return 1.0 + CLIQUE_PENALTY;
+	*/
 }
 
 
@@ -72,7 +77,7 @@ void constructQuadraticProblem() {
 		g_place_qpProb->x = NULL;
 		g_place_qpProb->y = NULL;
 		g_place_qpProb->fixed = NULL;
-		g_place_qpProb->connect = NULL;
+		g_place_qpProb->connect = NULL; // this is the adjacency matrix IMPT
 		g_place_qpProb->edge_weight = NULL;
 	}
 
@@ -91,7 +96,8 @@ void constructQuadraticProblem() {
 				cell_terms[c][p - 1] = net;
 			}
 		}
-	}
+	}//for end
+
 	if (ignoreNum) {
 		printf("QMAN-10 : \t\t%d large nets ignored\n", ignoreNum);
 	}
@@ -131,8 +137,10 @@ void constructQuadraticProblem() {
 		}
 		else {
 			if (!incremental) {
-				g_place_qpProb->x[c] = g_place_coreBounds.x + g_place_coreBounds.w*0.5;
-				g_place_qpProb->y[c] = g_place_coreBounds.y + g_place_coreBounds.h*0.5;
+				//g_place_qpProb->x[c] = g_place_coreBounds.x + g_place_coreBounds.w*0.5;// x is the center of rect
+				//g_place_qpProb->y[c] = g_place_coreBounds.y + g_place_coreBounds.h*0.5;// y is the center of rect
+				g_place_qpProb->x[c] = g_place_coreBounds.x + g_place_coreBounds.w; //x is the lowerleft
+				g_place_qpProb->y[c] = g_place_coreBounds.y + g_place_coreBounds.h; //y is the lowerleft
 			}
 			g_place_qpProb->fixed[c] = 0;
 		}
@@ -147,7 +155,7 @@ void constructQuadraticProblem() {
 				if (c2 == c) continue;
 				if (seen[c2] < last_index) {
 					// not seen
-					g_place_qpProb->connect[nextIndex - 1] = c2;
+					g_place_qpProb->connect[nextIndex - 1] = c2;					
 					g_place_qpProb->edge_weight[nextIndex - 1] = weight;
 					seen[c2] = nextIndex;
 					nextIndex++;
@@ -161,6 +169,7 @@ void constructQuadraticProblem() {
 		g_place_qpProb->connect[nextIndex - 1] = -1;
 		g_place_qpProb->edge_weight[nextIndex - 1] = -1.0;
 		nextIndex++;
+
 	}
 	else {
 		// fill in dummy values for connectivity matrices
@@ -168,6 +177,11 @@ void constructQuadraticProblem() {
 		g_place_qpProb->edge_weight[nextIndex - 1] = -1.0;
 		nextIndex++;
 	}
+
+	//²âÊÔÍ¨¹ý g_place_qpProb->connect[i] 
+	//for (int i = 0; i < nextIndex-1 ; i++) {
+	//	cout << g_place_qpProb->connect[i]<<"___";
+	//}
 
 	free(cell_numTerms);
 	free(cell_terms);

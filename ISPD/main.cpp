@@ -203,7 +203,7 @@ void readBookshelfNodes(char *filename) {
 		if (buf[0] == '\n' || buf[0] == '#') continue;
 
 		tok = strtok(buf, DELIMITERS);
-		concreteCells[id].m_id = id;;
+		concreteCells[id].m_id = id;
 
 		// label
 		concreteCells[id].m_parent = &(abstractCells[id]);
@@ -222,15 +222,8 @@ void readBookshelfNodes(char *filename) {
 		// terminal
 		abstractCells[id].m_pad = tok && !strcmp(tok, "terminal");
 
-		/*
-		这里需要加入 .pl文件的信息，一并加入 g_place_concreteCells[cell->m_id] = cell;中
-		*/
-
-
-
-
 		// add!
-		addConcreteCell(&(concreteCells[id]));
+		//addConcreteCell(&(concreteCells[id]));
 		
 		
 		// DEBUG
@@ -278,19 +271,28 @@ void readBookshelfPlacement(char *filename) {
 			printf("ERROR: Could not find cell %s in .nodes file\n", tok);
 			exit(1);
 		}
-
+		//cout <<"cell->m_id in the .pl file"<<cell->m_id << endl; //测试通过
 
 		// position
 		tok = strtok(NULL, DELIMITERS);
-		cell->m_x = atof(tok);
+		cell->m_x = atof(tok);		
 		tok = strtok(NULL, DELIMITERS);
 		cell->m_y = atof(tok);
+		concreteCells[cell->m_id].m_x = cell->m_x;//wu:edit
+		concreteCells[cell->m_id].m_y = cell->m_y;//wu:edit
 
 		// hfixed
 		cell->m_fixed = strtok(NULL, DELIMITERS) &&
 			(tok = strtok(NULL, DELIMITERS)) &&
-			!strcmp(tok, "\\FIXED");
+			!strcmp(tok, "/FIXED");
+		concreteCells[cell->m_id].m_fixed = cell->m_fixed;//wu:edit
+
+		//这里需要加入 .pl文件的信息，一并加入 g_place_concreteCells[cell->m_id] = cell;中		
+		// add!
+		addConcreteCell(&(concreteCells[cell->m_id]));
 	}
+	//cout << "cell->m_x in the .pl  " << cell->m_x << endl;//测试通过
+	//cout << "cell->m_fixed in the .pl  " << cell->m_fixed << endl;//测试通过
 
 	fclose(plFile);
 }
@@ -348,23 +350,33 @@ int main() {
 	char *fileWriteResult;
 	//filename = "D://Prj//PrjPartition//FmPartitionTest//FmPartitionTest//netlist.txt";
 	//filename = "D://Prj//PrjPartition//FmPartitionTest//FmPartitionTest//ibm10.net"; 
-	filenamePl = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1.pl";
-	filenameNodes = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1.nodes";
-	filenameNets = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1.nets";
-	fileWriteResult = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1result.txt";
+//blue1
+	//filenamePl = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1.pl";
+	//filenameNodes = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1.nodes";
+	//filenameNets = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1.nets";
+	//fileWriteResult = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//bigblue1//bigblue1result.txt";
+//eg_Prof.Lim
+	filenamePl = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//lim_example//eg.pl";
+	filenameNodes = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//lim_example//eg.nodes";
+	filenameNets = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//lim_example//eg.nets";
+	fileWriteResult = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//lim_example//egresult.txt";
 
+	//读入的顺序不能变
 	readBookshelfNodes(filenameNodes); // must be run first to initialize 
 	readBookshelfNets(filenameNets);
 	readBookshelfPlacement(filenamePl);
 	
-	/*
+	/* 测试修改readBookshelfPlacement() bug；测试通过
 	cout <<g_place_concreteCells[278154]->m_fixed << endl;
 	cout << g_place_concreteCells[278154]->m_parent->m_width << endl;
 	cout << g_place_concreteCells[278154]->m_parent->m_pad << endl;
+	cout << g_place_concreteCells[278154]->m_id << endl;
+	cout << g_place_concreteCells[278154]->m_x << endl;
 	*/
 
 	globalPreplace(0.8);
-	//globalPlace();
+	globalPlace();
+
 
 	// DEBUG net/cell removal/addition
 	/*
@@ -394,7 +406,7 @@ int main() {
 
 	//globalIncremental();
 
-	//writeBookshelfPlacement(fileWriteResult);
+	writeBookshelfPlacement(fileWriteResult);
 
 	free(hash_cellname);
 	system("pause");

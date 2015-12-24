@@ -49,6 +49,7 @@ void globalPlace() {
 	printf("QMAN-00 : \tconstructing initial quadratic problem...\n");
 	constructQuadraticProblem();
 	
+	/*
 	// iterate placement until termination condition is met
 	while (!completionFlag) {
 		printf("QMAN-01 : \titeration %d numPartitions = %d\n", iteration, g_place_numPartitions);
@@ -83,7 +84,7 @@ void globalPlace() {
 	globalFixDensity(25, g_place_rowHeight * 5);
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 
-	
+	*/
 }
 
 
