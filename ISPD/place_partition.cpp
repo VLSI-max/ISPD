@@ -7,7 +7,8 @@
 //
 /*===================================================================*/
 
-#include<iostream>
+#include <iostream>
+using namespace std;
 
 #include <stdlib.h>
 #include <math.h>
@@ -19,7 +20,6 @@
 //#include <unistd.h>
 #include <stdbool.h>
 
-using namespace std;
 
 #include "place_base.h"
 #include "place_gordian.h"
@@ -176,7 +176,7 @@ bool refinePartition(Partition *p) {
     return p->m_done;
   }
   
-  p->m_vertical = true;//wu: 为了和教科书第一次切割方向一致，所以修改微调
+  //p->m_vertical = true;//wu: 为了和教科书第一次切割方向一致，所以修改微调，所以调错了！！！不能加！
   // leaf...
   // create two new subpartitions
   g_place_numPartitions++;
@@ -205,7 +205,7 @@ bool refinePartition(Partition *p) {
   else 
     partitionScanlineMincut(p);
 
-  resizePartition(p);//测试通过
+  resizePartition(p);//测试partition 竖着一刀， 测试通过
   cout << "p->m_sub1->m_bounds.( x , y ) = ( " << p->m_sub1->m_bounds.x << " , " << p->m_sub1->m_bounds.y << " ) " << endl;
   cout << "p->m_sub1->m_bounds.( w , h ) = ( " << p->m_sub1->m_bounds.w << " , " << p->m_sub1->m_bounds.h << " ) " << endl;
 
@@ -215,17 +215,32 @@ bool refinePartition(Partition *p) {
 
 
   // --- PARTITION IMPROVEMENT
-
+  // 原先是有这段的，我先注释掉，我认为 area balance partition 后不能再用HMETIS方法去切，否则 area balance partition等于没做
+  /*
   if (p->m_level < REPARTITION_LEVEL_DEPTH) {
     if (REPARTITION_FM)
       repartitionFM(p);
     else if (REPARTITION_HMETIS)
       repartitionHMetis(p);
   }
-    
   resizePartition(p);
-  
-  // fix imbalances due to zero-area cells
+  */
+
+  //wu:edit
+  //partitionEqualArea(p->m_sub1);// wu: add 思路不对
+  //resizePartition(p->m_sub1);//只刷新边框坐标和size
+  //测试： 有差异
+  //cout << "p->m_sub1->m_bounds.( x , y ) = ( " << p->m_sub1->m_sub1->m_bounds.x << " , " << p->m_sub1->m_sub1->m_bounds.y << " ) " << endl;
+  //cout << "p->m_sub1->m_bounds.( w , h ) = ( " << p->m_sub1->m_sub1->m_bounds.w << " , " << p->m_sub1->m_sub1->m_bounds.h << " ) " << endl;
+
+  //cout << "p->m_sub1->m_bounds.( x , y ) = ( " << p->m_sub1->m_sub2->m_bounds.x << " , " << p->m_sub1->m_sub2->m_bounds.y << " ) " << endl;
+  //cout << "p->m_sub1->m_bounds.( w , h ) = ( " << p->m_sub1->m_sub2->m_bounds.w << " , " << p->m_sub1->m_sub2->m_bounds.h << " ) " << endl;
+
+  //cout << "p->m_sub2->m_bounds.( x , y ) = ( " << p->m_sub2->m_bounds.x << " , " << p->m_sub2->m_bounds.y << " ) " << endl;
+  //cout << "p->m_sub2->m_bounds.( w , h ) = ( " << p->m_sub2->m_bounds.w << " , " << p->m_sub2->m_bounds.h << " ) " << endl;
+  //cout << "p->m_sub1->m_sub1-># member = " << p->m_sub1->m_numMembers << endl;
+
+  // fix imbalances due to zero-area cells 区域里面cell的数量是空集的情况下如何处理？
   for(i=0; i<p->m_sub1->m_numMembers; i++)
     if (p->m_sub1->m_members[i]) 
       if (getCellArea(p->m_sub1->m_members[i]) > 0) {
@@ -233,7 +248,7 @@ bool refinePartition(Partition *p) {
       }
   
   // is this leaf now done?
-  if (nonzeroCount <= LARGEST_FINAL_SIZE)
+  if (nonzeroCount <= LARGEST_FINAL_SIZE) //区域里面cell的数量是空集 的区域数量如果小于等于LARGEST_FINAL_SIZE，切分结束
       p->m_sub1->m_done = true;
   if (nonzeroCount == 0)
       degenerate = true;

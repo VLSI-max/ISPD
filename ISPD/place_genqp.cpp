@@ -333,7 +333,7 @@ void solveQuadraticProblem(bool useCOG) {
 	//测试 qpsolve后的解::测试通过 
 	//Output: 存入了g_place_concreteCells[c]->m_x，g_place_concreteCells[c]->m_y中
 	for (c = 0; c < g_place_numCells; c++) {
-		cout << "( " << g_place_concreteCells[c]->m_x << " , " << g_place_concreteCells[c]->m_y << " )" << "---";
+		cout << g_place_concreteCells[c]->m_x << "," << g_place_concreteCells[c]->m_y <<endl;
 	}
 
 	// clean up
