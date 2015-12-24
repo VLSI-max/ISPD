@@ -183,6 +183,11 @@ void constructQuadraticProblem() {
 	//	cout << g_place_qpProb->connect[i]<<"___";
 	//}
 
+	//²âÊÔÍ¨¹ýedge weight
+	//for (int i = 0; i < nextIndex-1 ; i++) {
+	//	cout << g_place_qpProb->edge_weight[i]<<"___";
+	//}
+
 	free(cell_numTerms);
 	free(cell_terms);
 	free(seen);
