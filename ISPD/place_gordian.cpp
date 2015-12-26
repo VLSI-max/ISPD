@@ -45,7 +45,7 @@ void globalPlace() {
 
 	printf("PLAC-10 : Global placement (wirelength-driven Gordian)\n");
 	
-	initPartitioning();
+	initPartitioning();// 解开我心结的地方
 	
 	// build matrices representing interconnections
 	printf("QMAN-00 : \tconstructing initial quadratic problem...\n");
@@ -66,8 +66,7 @@ void globalPlace() {
 		// bisection
 		printf("QMAN-01 : \t\tpartition refinement\n");
 		if (REALLOCATE_PARTITIONS) reallocPartitions();
-		completionFlag |= refinePartitions(); //original
-		//refinePartitions();//wu edit
+		completionFlag |= refinePartitions(); 
 
 		printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 
@@ -83,13 +82,14 @@ void globalPlace() {
 	solveQuadraticProblem(!IGNORE_COG);
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
 	
+	
 	// clean up
 	sanitizePlacement();
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
-	globalFixDensity(25, g_place_rowHeight * 5);
+	//globalFixDensity(25, g_place_rowHeight * 5);  //  globalFixDensity这个有问题！
 	printf("QMAN-01 : \t\twirelength = %e\n", getTotalWirelength());
-
 	*/
+	
 }
 
 

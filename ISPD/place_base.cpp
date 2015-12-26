@@ -151,6 +151,9 @@ void   delConcreteNet(ConcreteNet *net) {
 /// The cell object must already be allocated and the ID must be set
 /// appropriately.
 //
+//---Function:	g_place_xxxxxx系列全局变量和main下的局部变量concreteCells，abstractCells的接口函数
+//---Input:		main下的局部变量concreteCells
+//---Output:	void
 // --------------------------------------------------------------------
 void   addConcreteCell(ConcreteCell *cell) {
 	assert(cell);

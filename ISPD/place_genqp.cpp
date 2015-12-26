@@ -76,6 +76,7 @@ void constructQuadraticProblem() {
 		g_place_qpProb->area = NULL;
 		g_place_qpProb->x = NULL;
 		g_place_qpProb->y = NULL;
+		g_place_qpProb->z = NULL;//wu
 		g_place_qpProb->fixed = NULL;
 		g_place_qpProb->connect = NULL; // this is the adjacency matrix IMPT
 		g_place_qpProb->edge_weight = NULL;
@@ -116,12 +117,13 @@ void constructQuadraticProblem() {
 		sizeof(int)*g_place_numCells);  // "fixed" matrix
 
 										// initialize or keep preexisting locations
-	if (g_place_qpProb->x != NULL && g_place_qpProb->y != NULL) {
+	if (g_place_qpProb->x != NULL && g_place_qpProb->y != NULL&& g_place_qpProb->z != NULL) {//wu
 		printf("QMAN-10 :\tperforming incremental placement\n");
 		incremental = true;
 	}
 	g_place_qpProb->x = (float*)realloc(g_place_qpProb->x, sizeof(float)*g_place_numCells);
 	g_place_qpProb->y = (float*)realloc(g_place_qpProb->y, sizeof(float)*g_place_numCells);
+	g_place_qpProb->z = (float*)realloc(g_place_qpProb->z, sizeof(float)*g_place_numCells);//wu
 
 	// form a row for each cell
 	// build data
@@ -133,6 +135,7 @@ void constructQuadraticProblem() {
 		if (cell->m_fixed || cell->m_parent->m_pad) {
 			g_place_qpProb->x[c] = cell->m_x;
 			g_place_qpProb->y[c] = cell->m_y;
+			g_place_qpProb->z[c] = 0;//wu
 			g_place_qpProb->fixed[c] = 1;
 		}
 		else {
@@ -141,6 +144,7 @@ void constructQuadraticProblem() {
 				//g_place_qpProb->y[c] = g_place_coreBounds.y + g_place_coreBounds.h*0.5;// y is the center of rect
 				g_place_qpProb->x[c] = g_place_coreBounds.x + g_place_coreBounds.w; //x is the lowerleft
 				g_place_qpProb->y[c] = g_place_coreBounds.y + g_place_coreBounds.h; //y is the lowerleft
+				//wu: how to modify z[c]
 			}
 			g_place_qpProb->fixed[c] = 0;
 		}
@@ -204,7 +208,7 @@ typedef struct reverseCOG {
 // --------------------------------------------------------------------
 // generateCoGConstraints()
 //
-/// \brief Generates center of gravity constraints.
+/// \brief Generates Center of Gravity(CoG) constraints.
 //
 // --------------------------------------------------------------------
 int generateCoGConstraints(reverseCOG COG_rev[]) {
@@ -233,15 +237,15 @@ int generateCoGConstraints(reverseCOG COG_rev[]) {
 		}
 		else {
 			
-			//cout << "adding a COG constraint for box "
-			//<< p->bounds.x << ","
-			//<< p->bounds.y << " of size"
-			//<< p->bounds.w << "x"
-			//<< p->bounds.h
-			//<< endl;
+			cout << "adding a COG constraint for box "
+			<< p->m_bounds.x << ","
+			<< p->m_bounds.y << " of size"
+			<< p->m_bounds.w << "x"
+			<< p->m_bounds.h
+			<< endl;
 			
-			cgx = p->m_bounds.x + p->m_bounds.w*0.5;
-			cgy = p->m_bounds.y + p->m_bounds.h*0.5;
+			cgx = p->m_bounds.x + p->m_bounds.w*0.5;//original
+			cgy = p->m_bounds.y + p->m_bounds.h*0.5;//original
 			COG_rev[cogRevNum].x = cgx;
 			COG_rev[cogRevNum].y = cgy;
 			COG_rev[cogRevNum].part = p;
@@ -258,6 +262,9 @@ int generateCoGConstraints(reverseCOG COG_rev[]) {
 		assert(p);
 		g_place_qpProb->cog_x[numConstraints] = COG_rev[i].x;
 		g_place_qpProb->cog_y[numConstraints] = COG_rev[i].y;
+		//wu test : the center of gravity
+		cout<<"CoG : "<< g_place_qpProb->cog_x[numConstraints] << "," << g_place_qpProb->cog_y[numConstraints] << endl;
+		
 		totarea = 0.0;
 		for (m = 0; m<p->m_numMembers; m++) if (p->m_members[m]) {
 			cell = p->m_members[m];
@@ -314,7 +321,7 @@ void solveQuadraticProblem(bool useCOG) {
 	qps_init(g_place_qpProb);
 
 	if (useCOG)
-		g_place_qpProb->cog_num = generateCoGConstraints(COG_rev);
+		g_place_qpProb->cog_num = generateCoGConstraints(COG_rev);	
 	else
 		g_place_qpProb->cog_num = 0;
 
@@ -328,18 +335,20 @@ void solveQuadraticProblem(bool useCOG) {
 	for (c = 0; c < g_place_numCells; c++) if (g_place_concreteCells[c]) {
 		g_place_concreteCells[c]->m_x = g_place_qpProb->x[c];
 		g_place_concreteCells[c]->m_y = g_place_qpProb->y[c];
+		g_place_concreteCells[c]->m_z = g_place_qpProb->z[c]; //wu
 	}
 
 	//测试 qpsolve后的解::测试通过 
 	//Output: 存入了g_place_concreteCells[c]->m_x，g_place_concreteCells[c]->m_y中
 	for (c = 0; c < g_place_numCells; c++) {
-		cout << g_place_concreteCells[c]->m_x << "," << g_place_concreteCells[c]->m_y <<endl;
+		cout << g_place_concreteCells[c]->m_x << "," << g_place_concreteCells[c]->m_y << ","<< g_place_concreteCells[c]->m_z <<endl;//wu
 	}
 
 	// clean up
 	free(g_place_qpProb->cog_list);
 	free(g_place_qpProb->cog_x);
 	free(g_place_qpProb->cog_y);
+	//free(g_place_qpProb->cog_z);//wu
 
 	free(COG_rev);
 }

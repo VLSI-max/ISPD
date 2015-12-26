@@ -50,6 +50,7 @@
 							fixed location of fixed cells. */
 		qps_float_t *y;		/* num_cells element array of
 							y-coordinates. */
+		qps_float_t *z;//wu
 		int *fixed;			/* num_cells element array with value 1 if
 							corresponding cell is fixed, 0 if
 							floating. */
@@ -75,6 +76,7 @@
 		qps_float_t *cog_y;		/* cog_num element array whose values are the
 								y-coordinates for the corresponding COG
 								constraints. */
+		qps_float_t *cog_z;//wu
 		qps_float_t *area;     	/* num_cells element array whose values are
 								the areas for the corresponding cells;
 								only useful with COG constraints. */
@@ -97,6 +99,7 @@
 								constrained optimization. */
 		qps_float_t max_y;		/* max y location;  only used in
 								constrained optimization. */
+		qps_float_t max_z;	//wu
 		int max_enable;		/* Set to 1 after qps_init() to enable
 							max_x/max_y. */
 		int max_done;		/* Done flag for max optimization. */

@@ -39,6 +39,8 @@ using namespace std;
 // --------------------------------------------------------------------
 
 Partition *g_place_rootPartition = NULL;
+//g_place_rootPartition
+
 ConcreteNet **allNetsR2 = NULL, 
   **allNetsL2 = NULL, 
   **allNetsB2 = NULL, 
@@ -83,7 +85,7 @@ void initPartitioning() {
   g_place_rootPartition->m_level = 0;
   g_place_rootPartition->m_area = 0;
   g_place_rootPartition->m_bounds = g_place_coreBounds;
-  g_place_rootPartition->m_vertical = false;
+  g_place_rootPartition->m_vertical = true;
   g_place_rootPartition->m_done = false;
   g_place_rootPartition->m_leaf = true;
       
@@ -208,10 +210,10 @@ bool refinePartition(Partition *p) {
   resizePartition(p);//测试partition 竖着一刀， 测试通过
   cout << "p->m_sub1->m_bounds.( x , y ) = ( " << p->m_sub1->m_bounds.x << " , " << p->m_sub1->m_bounds.y << " ) " << endl;
   cout << "p->m_sub1->m_bounds.( w , h ) = ( " << p->m_sub1->m_bounds.w << " , " << p->m_sub1->m_bounds.h << " ) " << endl;
-
+  //cout << "   " << p->m_sub1->m_bounds.x << "," << p->m_sub1->m_bounds.y << "" << endl;
   cout << "p->m_sub2->m_bounds.( x , y ) = ( " << p->m_sub2->m_bounds.x << " , " << p->m_sub2->m_bounds.y << " ) " << endl;
   cout << "p->m_sub2->m_bounds.( w , h ) = ( " << p->m_sub2->m_bounds.w << " , " << p->m_sub2->m_bounds.h << " ) " << endl;
-
+  //cout << "   " << p->m_sub2->m_bounds.x << "," << p->m_sub2->m_bounds.y << "" << endl;
 
 
   // --- PARTITION IMPROVEMENT
@@ -225,20 +227,6 @@ bool refinePartition(Partition *p) {
   }
   resizePartition(p);
   */
-
-  //wu:edit
-  //partitionEqualArea(p->m_sub1);// wu: add 思路不对
-  //resizePartition(p->m_sub1);//只刷新边框坐标和size
-  //测试： 有差异
-  //cout << "p->m_sub1->m_bounds.( x , y ) = ( " << p->m_sub1->m_sub1->m_bounds.x << " , " << p->m_sub1->m_sub1->m_bounds.y << " ) " << endl;
-  //cout << "p->m_sub1->m_bounds.( w , h ) = ( " << p->m_sub1->m_sub1->m_bounds.w << " , " << p->m_sub1->m_sub1->m_bounds.h << " ) " << endl;
-
-  //cout << "p->m_sub1->m_bounds.( x , y ) = ( " << p->m_sub1->m_sub2->m_bounds.x << " , " << p->m_sub1->m_sub2->m_bounds.y << " ) " << endl;
-  //cout << "p->m_sub1->m_bounds.( w , h ) = ( " << p->m_sub1->m_sub2->m_bounds.w << " , " << p->m_sub1->m_sub2->m_bounds.h << " ) " << endl;
-
-  //cout << "p->m_sub2->m_bounds.( x , y ) = ( " << p->m_sub2->m_bounds.x << " , " << p->m_sub2->m_bounds.y << " ) " << endl;
-  //cout << "p->m_sub2->m_bounds.( w , h ) = ( " << p->m_sub2->m_bounds.w << " , " << p->m_sub2->m_bounds.h << " ) " << endl;
-  //cout << "p->m_sub1->m_sub1-># member = " << p->m_sub1->m_numMembers << endl;
 
   // fix imbalances due to zero-area cells 区域里面cell的数量是空集的情况下如何处理？
   for(i=0; i<p->m_sub1->m_numMembers; i++)

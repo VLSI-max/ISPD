@@ -13,7 +13,7 @@
 #include <limits.h>
 #include <assert.h>
 
-//#define DEBUG
+#define DEBUG
 
 #include "place_base.h"
 
@@ -45,7 +45,7 @@ void globalFixDensity(int numBins, float maxMovement) {
 	printf("QCLN-10 : \tbin-based density correction\n");
 
 	spreadDensityX(numBins, maxMovement);
-	// spreadDensityY(numBins, maxMovement);
+	//spreadDensityY(numBins, maxMovement);// original is noted£¡but it is strange
 }
 
 

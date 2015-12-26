@@ -280,6 +280,7 @@ void readBookshelfPlacement(char *filename) {
 		cell->m_y = atof(tok);
 		concreteCells[cell->m_id].m_x = cell->m_x;//wu:edit
 		concreteCells[cell->m_id].m_y = cell->m_y;//wu:edit
+		concreteCells[cell->m_id].m_z = 0;//wu:edit
 
 		// hfixed
 		cell->m_fixed = strtok(NULL, DELIMITERS) &&
@@ -289,6 +290,10 @@ void readBookshelfPlacement(char *filename) {
 
 		//这里需要加入 .pl文件的信息，一并加入 g_place_concreteCells[cell->m_id] = cell;中		
 		// add!
+
+		//---Function:	g_place_xxxxxx系列全局变量和main下的局部变量concreteCells，abstractCells的接口函数
+		//---Input:		main下的局部变量concreteCells 注意是引用！！所以你看不到 g_place_xxxxxx的影子
+		//---Output:	void
 		addConcreteCell(&(concreteCells[cell->m_id]));
 	}
 	//cout << "cell->m_x in the .pl  " << cell->m_x << endl;//测试通过
@@ -308,11 +313,16 @@ void writeBookshelfPlacement(char *filename) {
 
 	fprintf(plFile, "UCLA pl 1.0\n");
 	for (c = 0; c<numCells; c++) {
-		fprintf(plFile, "%s %f %f : N %s\n",
+		fprintf(plFile, "%s %f %f %f : N %s\n",
 			concreteCells[c].m_label,
+			//g_place_concreteCells[c]->m_label, // wu
 			concreteCells[c].m_x,
+			//g_place_concreteCells[c]->m_x, // wu
 			concreteCells[c].m_y,
+			//g_place_concreteCells[c]->m_y, // wu
+			concreteCells[c].m_z,
 			(concreteCells[c].m_fixed ? "\\FIXED" : ""));
+			//(g_place_concreteCells[c]->m_fixed ? "\\FIXED" : "")); // wu
 	}
 
 	fclose(plFile);
@@ -362,6 +372,7 @@ int main() {
 	fileWriteResult = "D://PhysicalDesignCode//ISPD_Benchmark//Benchmark//lim_example//egresult.txt";
 
 	//读入的顺序不能变
+	// 接口
 	readBookshelfNodes(filenameNodes); // must be run first to initialize 
 	readBookshelfNets(filenameNets);
 	readBookshelfPlacement(filenamePl);

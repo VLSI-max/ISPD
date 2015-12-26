@@ -112,7 +112,7 @@ void globalPreplace(float utilization) {
 	remainingPads = padCount;
 	c = 0;
 
-	/*
+	/* //这里可以重新分派3D的pads
 	// north pads
 	northPads = remainingPads / 4; remainingPads -= northPads;
 	nextPos = 0;

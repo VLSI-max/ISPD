@@ -58,7 +58,8 @@ typedef struct ConcreteCell {
 	AbstractCell *m_parent;   // cell type
 
 	bool          m_fixed;    // position is fixed?
-	float         m_x, m_y;   // center of cell
+	//float         m_x, m_y;   // center of cell
+	float         m_x, m_y, m_z;   // center of cell
 
 	int           m_data;
 } ConcreteCell;

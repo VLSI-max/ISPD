@@ -23,7 +23,7 @@
 #define IGNORE_NETSIZE 20
 
 // Parameters for partitioning
-#define LARGEST_FINAL_SIZE 1 // each sub area has at most # of LARGEST_FINAL_SIZE cells
+#define LARGEST_FINAL_SIZE 0 // each sub area has at most # of LARGEST_FINAL_SIZE cells
 #define PARTITION_AREA_ONLY true
 #define REALLOCATE_PARTITIONS false //original is false
 #define FINAL_REALLOCATE_PARTITIONS false
